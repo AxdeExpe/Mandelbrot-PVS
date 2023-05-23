@@ -1,41 +1,39 @@
-import java.rmi.*;
-import java.rmi.server.*;
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
 
-public class Main{
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 
+public class Main {
     private static double Zoom;
-    private static int midPointX, midPointY;
+    private static int midPointX;
+    private static int midPointY;
+
+    public Main() {
+    }
 
     public static void main(String[] args) {
-
-        //usage check
-        if(args.length != 3){
+        if (args.length != 3) {
             System.out.println("Usage: <Zoomfactor> <MidPointX> <MidPointY>");
             System.exit(1);
         }
 
-        //initialize
+        GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+        int width = gd.getDisplayMode().getWidth() / 16 * 5;
+        int height = gd.getDisplayMode().getHeight() / 9 * 5;
         Zoom = Double.parseDouble(args[0]);
         midPointX = Integer.parseInt(args[1]);
         midPointY = Integer.parseInt(args[2]);
-
-
-        //wait for Clients
-
-
-
-        while(true){
-
-            Server t1 = new Server();
-            t1.start();
-
-            try
-            {
-                Thread.sleep(2000);
-                t1.interrupt(); //interrupt nur wenn neuer Client sich connecten will
-            }catch(Exception e){
-                System.out.println("Exception handled "+e);
-            }
-        }
+        Presenter presenter = new Presenter();
+        View view = new View(presenter);
+        Model model = new Model(presenter);
+        model.setZoomAndMidPoints(Zoom, midPointX, midPointY);
+        presenter.setModelAndView(model, view);
+        presenter.setWidthAndHeight(width, height);
+        presenter.setZoom(Zoom);
+        presenter.Start();
     }
 }
+
