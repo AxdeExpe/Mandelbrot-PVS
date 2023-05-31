@@ -1,8 +1,3 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
-
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.GraphicsDevice;
@@ -11,6 +6,8 @@ import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 public class View {
     private Panel panel = new Panel();
@@ -31,7 +28,7 @@ public class View {
         JFrame f = new JFrame();
         f.add(this.panel, "Center");
         f.setSize(this.width, this.height);
-        f.setDefaultCloseOperation(2);
+        f.setDefaultCloseOperation(EXIT_ON_CLOSE);
         f.setVisible(true);
     }
 
@@ -57,4 +54,3 @@ public class View {
         }
     }
 }
-

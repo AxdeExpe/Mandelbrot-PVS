@@ -1,8 +1,3 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
-
 import java.awt.Color;
 
 public class Presenter {
@@ -19,6 +14,7 @@ public class Presenter {
     private double Zoom;
 
     Presenter() {
+
     }
 
     public void setModelAndView(Model model, View view) {
@@ -38,6 +34,13 @@ public class Presenter {
     public void Start() {
         Color[][] c = new Color[this.width][this.height];
         this.view.UI(this.width, this.height);
+        /*
+        c = m.apfel_bild(xmin, xmax, ymin, ymax); c = model.getImage();
+        view.update(c);
+        */
+
+
+        Model.Handler.waitForClients();
+
     }
 }
-
