@@ -20,16 +20,37 @@ public class List {
     }
 
     //appends the available Threads into the List
-    public void append(int threads){
+    public void appendID(int threads){
         ID.add(ID.size(),new ArrayList<Integer>(Arrays.asList(ID.size(), threads)));
     }
 
-    public void append(int index, Color[][] image){
+    public void appendImage(int index, Color[][] image){
+
+        System.out.println("Before Checker: " + Images);
+
+        if(index < Images.size() && Images.get(index).contains(index) && Images.get(index).get(1) == (Object) 0){
+            System.out.println("CHECKER: " + Images);
+            Images.get(index).set(1,image);
+            System.out.println("After Checker: " + Images);
+            return;
+        }
+
+
+        System.out.println("SIZE: " + Images.size());
+
         Images.add(index,new ArrayList<Object>(Arrays.asList(Images.size(), image)));
+
+        System.out.println("sjdf");
+        System.out.println("Images[0][0]: " + Images.get(0).get(0));
+        System.out.println("Normal path: " + Images);
+
+
+
+
     }
 
-    public void append(int Index, int Null){
-        Images.add(Index,new ArrayList<Object>(Arrays.asList(Images.size(), Null)));
+    public void appendImage(int Index){
+        Images.add(Index,new ArrayList<Object>(Arrays.asList(Images.size(), 0)));
     }
 
 
