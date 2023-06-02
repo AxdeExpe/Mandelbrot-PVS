@@ -1,2 +1,2 @@
 # Mandelbrot-PVS
-Darstellung vom Mandelbrot via verteilter Berechnung
+- Representation of Mandelbrot via distributed computation
