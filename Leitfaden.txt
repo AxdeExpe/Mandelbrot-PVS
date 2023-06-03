@@ -17,7 +17,7 @@ Clients: - Anmelden auf Server (Datenpaket: [Anzahl an verfügbaren Threads])
 Server: - Clients jeweils eine ID geben 
 	- Bildausschnittswerte werden berechnet
 	- Anzahl (Threads) Bildausschnittswerte senden
-	- --> Datenpaket = [screen width, screen height, xmin, xmax, ymin, ymax, Bildausschnittswerte]
+	- --> Datenpaket = [Nummer des Bildes, screen width, screen height, xmin, xmax, ymin, ymax]
 	
 Client: - Bildberechnung aufteilen
 	- berechnet
