@@ -1,7 +1,5 @@
-
-Issue 1: - Mandelbrot Berechnung mit threading implementieren
-
 offene Frage: - Wie viel Clients werden im Test genutzt?
+Antwort: - X viele
 
 
 
