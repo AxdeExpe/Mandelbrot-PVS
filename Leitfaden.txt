@@ -19,7 +19,7 @@ Server: - Clients jeweils eine ID geben
 	
 Client: - Bildberechnung aufteilen
 	- berechnet
-	- sendet pro Thread ein Bild zurück (Datenpaket: [Nummer des Bildes, Bild])
+	- sendet pro Thread ein Bild zurück (Datenpaket: [Client-ID, Stelle / Nummer des Bildes, Bild])
 
 // Bild kommt an, pro Bild neuer Server Thread
 
