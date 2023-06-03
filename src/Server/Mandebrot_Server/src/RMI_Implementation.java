@@ -72,11 +72,21 @@ public class RMI_Implementation extends UnicastRemoteObject implements RMI {
 
         Color[][] c = new Color[1][1];
 
-         Images.appendImage(0);
+
+
+        Images.appendImage(0, 1);
         Images.appendImage(0,c);
         Images.appendImage(1,c);
-
-
+        Images.appendImage(2, 2);
+        System.out.println(Images.showImages());
+        Images.removeImageForce(1); //fails -> correct
+        System.out.println(Images.showImages());
+        Images.appendImage(2, 2);
+        System.out.println(Images.showImages());
+        Images.appendImage(2, c); //fails -> correct
+        System.out.println(Images.showImages());
+        Images.removeImageSecure(1,2); //doe's not fail -> correct
+        System.out.println(Images.showImages());
 
         return DataPaket; // falsch
 
@@ -105,7 +115,7 @@ public class RMI_Implementation extends UnicastRemoteObject implements RMI {
             Index++;
           //  Model.calcData();
             //Data.put(Model.fillData());
-            Images.appendImage(Index);
+            Images.appendImage(Index, 0);
         }
 
         Color[][] c = new Color[1][1];
