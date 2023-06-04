@@ -9,17 +9,57 @@ public class List {
     private java.util.List<ArrayList<Integer>> ID = new ArrayList<ArrayList<Integer>>();
     private java.util.List<ArrayList<Object>> Images = new ArrayList<ArrayList<Object>>();
 
+    //muss während Paketabgabe gechekt werden und anderen client zugewiesen werden
+    //[[ID,index from Images],[...],...]
+    private java.util.List<ArrayList<Integer>> Queue = new ArrayList<ArrayList<Integer>>();
 
-    //corrects the list if an item got removed, => changes the ID of each Client
-    /*
-    private void correctListID(){
-        for(int i = 0; i < ID.size(); i++){
-            if(!ID.get(i).contains(i)){
-                ID.get(i).set(0,i);
+
+    private void checkIDS(){
+
+        int count = 0;
+
+        for(int i = 0; i < Images.size(); i++){
+
+
+            System.out.println(Images.size() +  "           " + Images.get(i).contains(0));
+
+            if(Images.get(i).contains(0)) {
+                int id = (int) Images.get(i).get(0);
+
+
+                System.out.println("ID: " + id + "        " + i);
+                //die ID (client) wurde schon vermerkt
+/*
+                if ((id == (int) Images.get(i + 1).get(0)) && (count == 0) && i > 0) {
+                    System.out.println("sjhgf");
+                    continue;
+                }
+*/
+
+                count = 0;
+
+                for (int j = 0; j < ID.size(); j++) {
+                    if (id == ID.get(j).get(0)) {
+                        count++;
+                    }
+                }
+
+                //If Images at [[x,y],[x,y],...] y == 0 and ID wasn't found in ID list, then notice the
+                //index and ID from the Images list and append it to the Queue list
+                if ((count == 0) && ((int) Images.get(i).get(1) == 0)) {
+                    //merke die Stelle und ID, um diese später noch einmal zu bearbeiten
+                    Queue.add(Queue.size(), new ArrayList<Integer>(Arrays.asList(id, i)));
+                }
             }
         }
+
+        System.out.println(Queue);
+
     }
-     */
+
+
+
+
 
     //appends the available Threads into the List
     public void appendID(int threads){
@@ -34,7 +74,7 @@ public class List {
 
         //An out-of-range entry cannot be removed
         if (index >= ID.size()) {
-            System.out.println("Index out of bound!");
+            System.out.println("ID: Index out of bound!");
             return;
         }
 
@@ -87,7 +127,7 @@ public class List {
 
         //An out-of-range entry cannot be removed
         if (index >= Images.size()) {
-            System.out.println("Index out of bound!");
+            System.out.println("Image_Force: Index out of bound!");
             return;
         }
 
@@ -97,9 +137,15 @@ public class List {
     //removes entry safely
     public void removeImageSecure(int index, int ID){
 
+        //removeID(2);
+        //System.out.println(this.ID + " " + this.ID.size());
+
+        //checkIDS();
+
+
         //An out-of-range entry cannot be removed
         if (index >= Images.size()) {
-            System.out.println("Index out of bound!");
+            System.out.println("Image_Secure: Index out of bound!");
             return;
         }
 
@@ -110,5 +156,7 @@ public class List {
         }
 
         Images.remove(index);
+
+
     }
 }

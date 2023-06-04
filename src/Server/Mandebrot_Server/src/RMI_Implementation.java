@@ -25,11 +25,12 @@ public class RMI_Implementation extends UnicastRemoteObject implements RMI {
 
     //Constructor
     public RMI_Implementation() throws RemoteException {
-       /*
-        ID.append(1);
-        ID.append(2);
-        ID.append(3);
-        System.out.println(ID.show());
+
+        ID.appendID(1);
+        ID.appendID(2);
+        ID.appendID(3);
+        System.out.println(ID.showID());
+        /*
         ID.remove(1);
         System.out.println(ID.show());
         ID.append(4);
@@ -72,8 +73,6 @@ public class RMI_Implementation extends UnicastRemoteObject implements RMI {
 
         Color[][] c = new Color[1][1];
 
-
-
         Images.appendImage(0, 1);
         Images.appendImage(0,c);
         Images.appendImage(1,c);
@@ -83,10 +82,11 @@ public class RMI_Implementation extends UnicastRemoteObject implements RMI {
         System.out.println(Images.showImages());
         Images.appendImage(2, 2);
         System.out.println(Images.showImages());
-        Images.appendImage(2, c); //fails -> correct
+        Images.appendImage(3, c); //fails -> correct
         System.out.println(Images.showImages());
-        Images.removeImageSecure(1,2); //doe's not fail -> correct
+        Images.removeImageSecure(1,2); //does not fail -> correct
         System.out.println(Images.showImages());
+
 
         return DataPaket; // falsch
 
