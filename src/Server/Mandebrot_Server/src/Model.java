@@ -74,12 +74,12 @@ public class Model {
 
                 //export remote object and listen at the port
                 if (UnicastRemoteObject.unexportObject(remoteObject, false)) {
-                    remoteObject = (RMI) UnicastRemoteObject.exportObject(remoteObject, 8888); //don't need sudo rights
+                    remoteObject = (RMI) UnicastRemoteObject.exportObject(remoteObject, 1099); //don't need sudo rights
                 }
 
                 //create RMI-Registry and bind remote object
                 Registry registry = LocateRegistry.createRegistry(1099);
-                registry.rebind("rmi", remoteObject);
+                registry.bind("rmi", remoteObject);
 
                 System.out.println("Server started!");
             }
