@@ -11,18 +11,25 @@ public class Test_Client{
             Registry registry = LocateRegistry.getRegistry("localhost", 1099);
 
 
-            System.out.println("<dkj");
+
 
             // Remote-Objekt vom Server abrufen
             RMI remoteObjekt = (RMI) registry.lookup("rmi");
 
-            ByteBuffer b = ByteBuffer.allocate(2);
+
+            byte[] bytes = new byte[10];
+
+            ByteBuffer b = ByteBuffer.wrap(bytes);
             b.putInt(4);
 
-            // Remote-Methode aufrufen, um Daten vom Server zu empfangen
-            ByteBuffer receivedData = remoteObjekt.getConnection(b);
+            System.out.println("fdgjishjk: " + bytes[1]);
 
-            System.out.println("Threads: " + receivedData.getInt());
+
+            // Remote-Methode aufrufen, um Daten vom Server zu empfangen
+            String receivedData = remoteObjekt.sayHello();
+
+
+           // System.out.println("Threads: " + receivedData.getInt());
 
             System.out.println("Empfangene Daten: " + receivedData);
         } catch (Exception e) {

@@ -1,3 +1,4 @@
+import java.rmi.Naming;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
@@ -15,7 +16,7 @@ public class Test_Server {
 
             //create RMI-Registry and bind remote object
             Registry registry = LocateRegistry.createRegistry(1099);
-            registry.rebind("rmi", remoteObject);
+            registry.bind("rmi", remoteObject);
 
             System.out.println("Server started!");
         }

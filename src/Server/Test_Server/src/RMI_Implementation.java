@@ -1,10 +1,7 @@
-import javax.xml.crypto.Data;
 import java.awt.*;
 import java.nio.ByteBuffer;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class RMI_Implementation extends UnicastRemoteObject implements RMI {
 
@@ -58,6 +55,10 @@ public class RMI_Implementation extends UnicastRemoteObject implements RMI {
 
     }
 
+    public String sayHello(){
+        System.out.println("ich wurde aufgerufen 'Server'");
+        return "Hello";
+    }
 
     //sends data
     @Override
