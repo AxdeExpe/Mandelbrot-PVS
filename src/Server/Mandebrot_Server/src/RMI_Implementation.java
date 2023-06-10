@@ -64,14 +64,19 @@ public class RMI_Implementation extends UnicastRemoteObject implements RMI {
     @Override
     public byte[] sendData(byte[] DataPaket) throws RemoteException {
         // gets the amount of Threads from the Client
-       // int Threads = DataPaket.getInt();
-       // int index = DataPaket.getInt(); // index of the image
+        ByteBuffer buffer = ByteBuffer.wrap(DataPaket);
+        int ID = buffer.getInt();
+        int place = buffer.getInt();
+
+        Color[][] c = new Color[???][???];
 
         //getting the Images
         //Extract the Color[][] out of the ByteBuffer
-        //TODO Richard fragen
-
-        Color[][] c = new Color[1][1];
+        for(int i = 0; i < ???; i++){
+            for(int j = 0; j < ???; j++){
+                Color[i][j] = buffer.getInt();
+            }
+        }
 
         Images.appendImage(0, 1);
         Images.appendImage(0,c);
@@ -103,14 +108,13 @@ public class RMI_Implementation extends UnicastRemoteObject implements RMI {
 
         // gets the amount of Threads from the Client
         ByteBuffer buffer = ByteBuffer.wrap(DataPaket);
-
         int Threads = buffer.getInt();
         ID.appendID(Threads);
 
 
         //create Data buffer
-        ByteBuffer Data;
-        Data = ByteBuffer.allocate(Threads);
+        byte[] Data = new byte[Threads];
+        ByteBuffer bufferData = ByteBuffer.wrap(Data);
 
         //fill the buffer with the data
         for (int i = 0; i < Threads; i++) {
@@ -124,6 +128,6 @@ public class RMI_Implementation extends UnicastRemoteObject implements RMI {
         //Data.put(c);
 
         //sends the Data packet back
-        return DataPaket;
+        return Data;
     }
 }
