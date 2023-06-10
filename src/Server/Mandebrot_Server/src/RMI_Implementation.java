@@ -54,7 +54,7 @@ public class RMI_Implementation extends UnicastRemoteObject implements RMI {
         System.out.println(Images.showImages());
         */
 
-        ByteBuffer b = null;
+        byte[] b = new byte[10];
         sendData(b);
 
     }
@@ -62,7 +62,7 @@ public class RMI_Implementation extends UnicastRemoteObject implements RMI {
 
     //sends data
     @Override
-    public ByteBuffer sendData(ByteBuffer DataPaket) throws RemoteException {
+    public byte[] sendData(byte[] DataPaket) throws RemoteException {
         // gets the amount of Threads from the Client
        // int Threads = DataPaket.getInt();
        // int index = DataPaket.getInt(); // index of the image
@@ -94,15 +94,17 @@ public class RMI_Implementation extends UnicastRemoteObject implements RMI {
 
     //receives data and working on
     @Override
-    public void workOnRequest(ByteBuffer DataPaket) throws RemoteException {
+    public void workOnRequest(byte[] DataPaket) throws RemoteException {
 
     }
 
     @Override
-    public ByteBuffer getConnection(ByteBuffer DataPaket) throws RemoteException {
+    public byte[] getConnection(byte[] DataPaket) throws RemoteException {
 
         // gets the amount of Threads from the Client
-        int Threads = DataPaket.getInt();
+        ByteBuffer buffer = ByteBuffer.wrap(DataPaket);
+
+        int Threads = buffer.getInt();
         ID.appendID(Threads);
 
 

@@ -10,5 +10,5 @@ public interface RMI extends Remote {
 
     ByteBuffer getConnection(ByteBuffer DataPaket) throws RemoteException; //Client -> Server, necessary for the first connection request
 
-    String sayHello() throws RemoteException;
+    String sayHello(byte[] b) throws RemoteException;
 }

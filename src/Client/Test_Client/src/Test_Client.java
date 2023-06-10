@@ -20,13 +20,13 @@ public class Test_Client{
             byte[] bytes = new byte[10];
 
             ByteBuffer b = ByteBuffer.wrap(bytes);
-            b.putInt(4);
+            b.putInt(45);
 
             System.out.println("fdgjishjk: " + bytes[1]);
 
 
             // Remote-Methode aufrufen, um Daten vom Server zu empfangen
-            String receivedData = remoteObjekt.sayHello();
+            String receivedData = remoteObjekt.sayHello(bytes);
 
 
            // System.out.println("Threads: " + receivedData.getInt());

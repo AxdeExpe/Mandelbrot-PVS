@@ -4,9 +4,9 @@ import java.rmi.RemoteException;
 
 public interface RMI extends Remote {
 
-    ByteBuffer sendData(ByteBuffer DataPaket) throws RemoteException; //Server -> Client
+    byte[] sendData(byte[] DataPaket) throws RemoteException; //Server -> Client
 
-    void workOnRequest(ByteBuffer DataPaket) throws RemoteException; //Client -> Server
+    void workOnRequest(byte[] DataPaket) throws RemoteException; //Client -> Server
 
-    ByteBuffer getConnection(ByteBuffer DataPaket) throws RemoteException; //Client -> Server, necessary for the first connection request
+    byte[] getConnection(byte[] DataPaket) throws RemoteException; //Client -> Server, necessary for the first connection request
 }

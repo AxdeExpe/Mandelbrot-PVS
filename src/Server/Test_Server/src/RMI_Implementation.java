@@ -55,7 +55,13 @@ public class RMI_Implementation extends UnicastRemoteObject implements RMI {
 
     }
 
-    public String sayHello(){
+    public String sayHello(byte[] b){
+
+        ByteBuffer ba = ByteBuffer.wrap(b);
+
+        System.out.println("Content: " + ba.getInt());
+
+
         System.out.println("ich wurde aufgerufen 'Server'");
         return "Hello";
     }
