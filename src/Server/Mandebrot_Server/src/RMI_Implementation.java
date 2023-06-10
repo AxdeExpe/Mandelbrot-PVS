@@ -78,7 +78,7 @@ public class RMI_Implementation extends UnicastRemoteObject implements RMI {
             }
         }
 
-        Images.appendImage(0, 1);
+        Images.appendImage(0, 1);s
         Images.appendImage(0,c);
         Images.appendImage(1,c);
         Images.appendImage(2, 2);
