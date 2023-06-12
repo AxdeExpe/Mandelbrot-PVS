@@ -251,47 +251,29 @@ public class RMI_Implementation extends UnicastRemoteObject implements RMI{
 
 
 
-    //Zoom has to be > 1.0
-    private double Zoom = 1.1;
+    //Zoom needss to be > 1.0
+    private double Zoom = 0.1;
     private ByteBuffer buffer;
 
     //data for client
     private double width = 800; //screen resolution
     private double height = 400; //screen resolution
-    private double xmin1 = -1.666;
-    private double xmax1 = 1.0;
-    private double ymin1 = -1.0;
-    private double ymax1 = 1.0;
-    private int loops = 0;
-
-    private double xmin, xmax, ymin, ymax;
-
+    private double xmin = -1.666;
+    private double xmax = 1.0;
+    private double ymin = -1.0;
+    private double ymax = 1.0;
     private double cr = -0.743643887036151;
     private double ci = 0.13182590420533;
 
 
 
     public void calcData(){
-        if(loops == 0) {
-            loops++;
-            double xdim = xmax1 - xmin1;
-            double ydim = ymax1 - ymin1;
-            xmin = cr - xdim / 2 / Zoom;
-            xmax = cr + xdim / 2 / Zoom;
-            ymin = ci - ydim / 2 / Zoom;
-            ymax = ci + ydim / 2 / Zoom;
-            return;
-        }
-
         double xdim = xmax - xmin;
         double ydim = ymax - ymin;
         xmin = cr - xdim / 2 / Zoom;
         xmax = cr + xdim / 2 / Zoom;
         ymin = ci - ydim / 2 / Zoom;
         ymax = ci + ydim / 2 / Zoom;
-
-        System.out.println(loops);
-        System.out.println(xmin);
     }
 
     //filling up the ByteBuffer

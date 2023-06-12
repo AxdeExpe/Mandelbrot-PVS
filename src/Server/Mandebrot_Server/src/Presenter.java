@@ -28,6 +28,12 @@ public class Presenter {
     }
 
     public void setZoom(double zoom) {
+
+        if(zoom == 1.0){
+            System.out.println("Zoom has to be larger or lower then 1.0!");
+            System.exit(1);
+        }
+
         this.Zoom = zoom;
     }
 
