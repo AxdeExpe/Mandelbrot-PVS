@@ -1,14 +1,16 @@
+import java.awt.*;
 import java.nio.ByteBuffer;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 public interface RMI extends Remote {
 
-    ByteBuffer sendData(ByteBuffer DataPaket) throws RemoteException; //Server -> Client
+    byte[] sendData(byte[] DataPaket) throws RemoteException; //Server -> Client
 
-    void workOnRequest(ByteBuffer DataPaket) throws RemoteException; //Client -> Server
+    void workOnRequest(byte[] DataPaket) throws RemoteException; //Client -> Server
 
-    ByteBuffer getConnection(ByteBuffer DataPaket) throws RemoteException; //Client -> Server, necessary for the first connection request
+    ArrayList<Object> getConnection(int Thread) throws RemoteException;
 
-    String sayHello(byte[] b) throws RemoteException;
+    ArrayList<Object> getColor(int Thread) throws RemoteException;
 }

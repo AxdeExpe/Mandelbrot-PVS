@@ -2,6 +2,7 @@ import java.awt.*;
 import java.nio.ByteBuffer;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 
 public class RMI_Implementation extends UnicastRemoteObject implements RMI {
 
@@ -120,5 +121,14 @@ public class RMI_Implementation extends UnicastRemoteObject implements RMI {
 
         //sends the Data packet back
         return DataPaket;
+    }
+
+    @Override
+    public ArrayList<Object> getColor(Color[][] c) {
+        ArrayList<Object> a = new ArrayList<Object>();
+        a.add(1);
+        a.add(c);
+
+        return a;
     }
 }
