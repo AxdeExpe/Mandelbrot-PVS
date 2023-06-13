@@ -1,4 +1,7 @@
 import java.awt.Color;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 
 public class Presenter {
     private Model model;
@@ -37,6 +40,32 @@ public class Presenter {
         this.Zoom = zoom;
     }
 
+    private void waitForClients(){
+
+        try {
+            RMI remoteObject = new RMI_Implementation(this.model);
+
+            //export remote object and listen at the port
+            if (UnicastRemoteObject.unexportObject(remoteObject, false)) {
+                remoteObject = (RMI) UnicastRemoteObject.exportObject(remoteObject, 1099); //don't need sudo rights
+            }
+
+            //create RMI-Registry and bind remote object
+            Registry registry = LocateRegistry.createRegistry(1099);
+            registry.bind("rmi", remoteObject);
+
+            System.out.println("Server started!");
+        }
+        catch(Exception e){
+            System.err.println("Couldn't start server: " + e.toString());
+        }
+    }
+
+    public void setImage(Color[][] image){
+        this.view.update(image);
+    }
+
+
     public void Start() {
         Color[][] c = new Color[this.width][this.height];
         this.view.UI(this.width, this.height);
@@ -46,7 +75,7 @@ public class Presenter {
         */
 
 
-        Model.Handler.waitForClients();
+        this.waitForClients();
 
     }
 }

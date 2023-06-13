@@ -148,13 +148,14 @@ public class RMI_Implementation extends UnicastRemoteObject implements RMI{
 
 
 
-
+    Model m;
 
     //---------------------------------------RMI--------------------------------------
 
     //Constructor
-    public RMI_Implementation() throws RemoteException {
+    public RMI_Implementation(Model m) throws RemoteException {
 
+        this.m = m;
         //appendID(1);
         //appendID(2);
         //appendID(3);
@@ -183,31 +184,42 @@ public class RMI_Implementation extends UnicastRemoteObject implements RMI{
         System.out.println(Images.showImages());
         */
 
-        byte[] b = new byte[10];
-        sendData(b);
+       // byte[] b = new byte[10];
+       // sendData(b);
 
     }
 
 
     //sends data
     @Override
-    public byte[] sendData(byte[] DataPaket) throws RemoteException {
-        // gets the amount of Threads from the Client
-        ByteBuffer buffer = ByteBuffer.wrap(DataPaket);
-        int ID = buffer.getInt();
-        int place = buffer.getInt();
+    public ArrayList<Double> sendData(ArrayList<Object> DataPaket) throws RemoteException {
+        // gets the ID and the place where the placeholder of the image is, to replace it with the image
+        int ID = (int) DataPaket.get(0);
+        int place = (int) DataPaket.get(1);
+        Color[][] c = (Color[][]) DataPaket.get(2);
 
-        //Color[][] c = new Color[???][???];
-
-        //getting the Images
-        //Extract the Color[][] out of the ByteBuffer
-        /*for(int i = 0; i < ???; i++){
-            for(int j = 0; j < ???; j++){
-                Color[i][j] = buffer.getInt();
-            }
-        }
+        System.out.println("ID: " + ID + "; Place: " + place + "; Color[][]: " + c);
 
 
+        //put it into the Queue and show it maybe on the screen
+        this.m.getImage(c);
+        System.out.println("ICH HABE ES GESCHAFFT");
+
+        //get new place and push it into the List
+        calcData();
+
+        //put Data into the second List
+        ArrayList<Double> data = new ArrayList<Double>();
+        data.add(width);
+        data.add(height);
+        data.add(xmin);
+        data.add(xmax);
+        data.add(ymin);
+        data.add(ymax);
+
+
+
+        /*
         Images.appendImage(0, 1);
         Images.appendImage(0,c);
         Images.appendImage(1,c);
@@ -223,7 +235,7 @@ public class RMI_Implementation extends UnicastRemoteObject implements RMI{
         System.out.println(Images.showImages());
 */
 
-        return DataPaket; // falsch
+        return data; // falsch
 
     }
 
@@ -233,25 +245,8 @@ public class RMI_Implementation extends UnicastRemoteObject implements RMI{
 
     }
 
-    public void hello(){
-        System.out.println("lojuhsdiufhd97z2349732");
-        if(Index < Images.size() && Images.get(Index).contains(Index) && Images.get(Index).get(1) != null){
-            System.out.println("This index is already filled!");
-            return;
-        }
 
-        Images.add(Index,new ArrayList<Object>(Arrays.asList(ID, 0)));
-    }
-
-
-
-
-
-
-
-
-
-    //Zoom needss to be > 1.0
+    //Zoom has to be != 1.0
     private double Zoom = 0.1;
     private ByteBuffer buffer;
 
@@ -275,28 +270,6 @@ public class RMI_Implementation extends UnicastRemoteObject implements RMI{
         ymin = ci - ydim / 2 / Zoom;
         ymax = ci + ydim / 2 / Zoom;
     }
-
-    //filling up the ByteBuffer
-    private byte[] fillData(){
-
-        byte[] b = new byte[6];
-
-        this.buffer = ByteBuffer.wrap(b);
-
-        //screen resolution
-        //this.buffer.putInt(this.width);
-        //this.buffer.putInt(this.height);
-
-        //image data
-        this.buffer.putDouble(this.xmin);
-        this.buffer.putDouble(this.xmax);
-        this.buffer.putDouble(this.ymin);
-        this.buffer.putDouble(this.xmax);
-
-        return b;
-
-    }
-
 
 
     @Override

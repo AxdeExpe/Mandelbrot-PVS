@@ -23,6 +23,8 @@ public class Main {
         int width = gd.getDisplayMode().getWidth() / 16 * 5;
         int height = gd.getDisplayMode().getHeight() / 9 * 5;
 
+        System.out.println(width + " " + height);
+
         //initializing
         Zoom = Double.parseDouble(args[0]);
         midPointX = Integer.parseInt(args[1]);

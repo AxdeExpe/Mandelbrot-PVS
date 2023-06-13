@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.nio.ByteBuffer;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -30,62 +31,12 @@ public class Model {
         this.MidPointY = Y;
     }
 
-    public void setScreenResolution(int width, int height){
+    public void setScreenResolution(int width, int height) {
         this.width = width;
         this.height = height;
     }
 
-
-    //calc the necessary data for the client
-    public void calcData(){
-        double xdim = xmax - xmin;
-        double ydim = ymax - ymin;
-        xmin = cr - xdim / 2 / Zoom;
-        xmax = cr + xdim / 2 / Zoom;
-        ymin = ci - ydim / 2 / Zoom;
-        ymax = ci + ydim / 2 / Zoom;
-    }
-
-    //filling up the ByteBuffer
-    private ByteBuffer fillData(){
-        this.buffer = ByteBuffer.allocate(6);
-
-        //screen resolution
-        this.buffer.putInt(this.width);
-        this.buffer.putInt(this.height);
-
-        //image data
-        this.buffer.putDouble(this.xmin);
-        this.buffer.putDouble(this.xmax);
-        this.buffer.putDouble(this.ymin);
-        this.buffer.putDouble(this.xmax);
-
-        return this.buffer;
-    }
-
-
-    //RMI class
-    static class Handler{
-
-        public static void waitForClients(){
-
-            try {
-                RMI remoteObject = new RMI_Implementation();
-
-                //export remote object and listen at the port
-                if (UnicastRemoteObject.unexportObject(remoteObject, false)) {
-                    remoteObject = (RMI) UnicastRemoteObject.exportObject(remoteObject, 1099); //don't need sudo rights
-                }
-
-                //create RMI-Registry and bind remote object
-                Registry registry = LocateRegistry.createRegistry(1099);
-                registry.bind("rmi", remoteObject);
-
-                System.out.println("Server started!");
-            }
-            catch(Exception e){
-                System.err.println("Couldn't start server: " + e.toString());
-            }
-        }
+    public void getImage(Color[][] image){
+        this.presenter.setImage(image);
     }
 }

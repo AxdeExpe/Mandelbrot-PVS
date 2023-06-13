@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public interface RMI extends Remote {
 
-    byte[] sendData(byte[] DataPaket) throws RemoteException; //Server -> Client
+    ArrayList<Double> sendData(ArrayList<Object> DataPaket) throws RemoteException; //Server -> Client
 
     void workOnRequest(byte[] DataPaket) throws RemoteException; //Client -> Server
 
