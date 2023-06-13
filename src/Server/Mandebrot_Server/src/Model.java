@@ -3,23 +3,29 @@ import java.nio.ByteBuffer;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Model {
     private Presenter presenter;
-    private double Zoom;
+    public double Zoom;
     private int MidPointX;
     private int MidPointY;
     private ByteBuffer buffer;
 
     //data for client
-    private int width, height; //screen resolution
-    private double xmin = -1.666;
-    private double xmax = 1.0;
-    private double ymin = -1.0;
-    private double ymax = 1.0;
-    private double cr = -0.743643887036151;
-    private double ci = 0.13182590420533;
+    protected int width, height; //screen resolution
+    protected double xmin = -1.666;
+    protected double xmax = 1.0;
+    protected double ymin = -1.0;
+    protected double ymax = 1.0;
+    protected double cr = -0.743643887036151;
+    protected double ci = 0.13182590420533;
+
+    //Image List
+    public java.util.List<ArrayList<Object>> Images = new ArrayList<ArrayList<Object>>();
+    private int imagesLength = Images.size();
+    private int imagesCounter = 0;
 
     Model(Presenter presenter) {
         this.presenter = presenter;
@@ -36,7 +42,21 @@ public class Model {
         this.height = height;
     }
 
-    public void getImage(Color[][] image){
-        this.presenter.setImage(image);
+    //checks the Image list all the time
+    public void imagesWatchdog(){
+        while(true){
+
+            int length = Images.size();
+
+            if(length > this.imagesLength){
+                this.imagesLength = length;
+
+                if((int) Images.get(imagesCounter).get(1) != 0){
+
+                    this.imagesCounter++;
+                    this.presenter.setImage((Color[][]) Images.get(imagesCounter).get(1));
+                }
+            }
+        }
     }
 }

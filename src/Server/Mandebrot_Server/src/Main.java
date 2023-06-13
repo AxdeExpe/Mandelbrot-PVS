@@ -43,4 +43,3 @@ public class Main {
         presenter.Start();
     }
 }
-

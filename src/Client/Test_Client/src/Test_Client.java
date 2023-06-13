@@ -41,28 +41,49 @@ public class Test_Client{
 
 */
 
+            ArrayList<Object> list = remoteObjekt.getConnection(1);
+            int ID = (int) list.get(0);
+            int place = (int) list.get(1);
 
-            System.out.println("Color[][]: " + remoteObjekt.getConnection(20));
+            for(int i = 0; i < 1; i++) { //1 = Threads
 
-            Color[][] c = new Color[600][600]; //höhe und breite nur so aufm Laptop
+                ArrayList<Object> list2 = new ArrayList<Object>();
+                list2 = (ArrayList<Object>) list.get(2);
+                System.out.println("sdfk");
+                double width = (Double) list2.get(0);
+                double height = (Double) list2.get(1);
+                double xmin = (Double) list2.get(2);
+                double xmax = (Double) list2.get(3);
+                double ymin = (Double) list2.get(4);
+                double ymax = (Double) list2.get(5);
 
-            for(int y = 0; y < 600; ++y) {
-                for(int x = 0; x < 600; ++x) {
-                    if (c[x][y] == null) {
-                        c[x][y] = Color.RED;
-                        System.out.println("Daten: " + c[x][y]);
+
+                System.out.println("Color[][]: " + list);
+                System.out.println("ID: " + ID + "\nWidth: " + width + "\nHeight: " + height + "\nxmin: " + xmin + "\nxmax: " + xmax + "\nymin: " + ymin + "\nymax: " + ymax);
+
+                Color[][] c = new Color[(int) height][(int) width]; //höhe und breite nur so aufm Laptop
+
+                for (int y = 0; y < width; ++y) {
+                    for (int x = 0; x < height; ++x) {
+                        if (c[x][y] == null) {
+                            c[x][y] = Color.RED;
+                        }
                     }
                 }
+
+                ArrayList<Object> data = new ArrayList<Object>();
+                data.add(ID);
+                data.add(place);
+                data.add(c);
+                System.out.println("fdhjiaogs89z732r");
+
+                ArrayList<Double> dataReturn = remoteObjekt.sendData(data);
+                System.out.println("HIER SIND DIE DATEN: " + dataReturn);
+
             }
 
 
-            ArrayList<Object> data = new ArrayList<Object>();
-            data.add(0);
-            data.add(0);
-            data.add(c);
 
-            ArrayList<Double> dataReturn = remoteObjekt.sendData(data);
-            System.out.println("HIER SIND DIE DATEN: " + dataReturn);
 
             //System.out.println("Threads: " + receivedData.getInt());
 

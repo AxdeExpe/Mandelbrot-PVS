@@ -67,15 +67,9 @@ public class Presenter {
 
 
     public void Start() {
-        Color[][] c = new Color[this.width][this.height];
         this.view.UI(this.width, this.height);
-        /*
-        c = m.apfel_bild(xmin, xmax, ymin, ymax); c = model.getImage();
-        view.update(c);
-        */
-
 
         this.waitForClients();
-
+        this.model.imagesWatchdog();
     }
 }
