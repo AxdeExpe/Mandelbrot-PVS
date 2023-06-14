@@ -21,31 +21,12 @@ public class Test_Client{
             // Remote-Objekt vom Server abrufen
             RMI remoteObjekt = (RMI) registry.lookup("rmi");
 
-/*
-            byte[] bytes = new byte[4];
 
-            ByteBuffer b = ByteBuffer.wrap(bytes);
-            b.order(ByteOrder.BIG_ENDIAN);
-            b.putInt(8);
-
-           // ByteBuffer a = ByteBuffer.wrap(bytes);
-
-
-            System.out.println("fdgjishjk: " + bytes[0]);
-
-
-            // Remote-Methode aufrufen, um Daten vom Server zu empfangen
-            byte[] receivedData = new byte[100];
-            receivedData = remoteObjekt.getConnection(bytes);
-            //senden funktioniert aber das Paket kommt nicht zurück
-
-*/
-
-            ArrayList<Object> list = remoteObjekt.getConnection(1);
+            ArrayList<Object> list = remoteObjekt.getConnection(2);
             int ID = (int) list.get(0);
             int place = (int) list.get(1);
 
-            for(int i = 0; i < 1; i++) { //1 = Threads
+            for(int i = 0; i < 2; i++) { //2 = Threads
 
                 ArrayList<Object> list2 = new ArrayList<Object>();
                 list2 = (ArrayList<Object>) list.get(2);
