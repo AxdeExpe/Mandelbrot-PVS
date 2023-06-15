@@ -1,4 +1,4 @@
-import java.awt.Color;
+import java.awt.*;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;

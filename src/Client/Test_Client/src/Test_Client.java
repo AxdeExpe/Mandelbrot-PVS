@@ -30,7 +30,6 @@ public class Test_Client{
 
                 ArrayList<Object> list2 = new ArrayList<Object>();
                 list2 = (ArrayList<Object>) list.get(2);
-                System.out.println("sdfk");
                 double width = (Double) list2.get(0);
                 double height = (Double) list2.get(1);
                 double xmin = (Double) list2.get(2);
@@ -42,10 +41,10 @@ public class Test_Client{
                 System.out.println("Color[][]: " + list);
                 System.out.println("ID: " + ID + "\nWidth: " + width + "\nHeight: " + height + "\nxmin: " + xmin + "\nxmax: " + xmax + "\nymin: " + ymin + "\nymax: " + ymax);
 
-                Color[][] c = new Color[(int) height][(int) width]; //höhe und breite nur so aufm Laptop
+                Color[][] c = new Color[(int) width][(int) height]; //höhe und breite nur so aufm Laptop
 
-                for (int y = 0; y < width; ++y) {
-                    for (int x = 0; x < height; ++x) {
+                for (int y = 0; y < height; ++y) {
+                    for (int x = 0; x < width; ++x) {
                         if (c[x][y] == null) {
                             c[x][y] = Color.RED;
                         }
@@ -56,7 +55,6 @@ public class Test_Client{
                 data.add(ID);
                 data.add(place);
                 data.add(c);
-                System.out.println("fdhjiaogs89z732r");
 
                 ArrayList<Double> dataReturn = remoteObjekt.sendData(data);
                 System.out.println("HIER SIND DIE DATEN: " + dataReturn);

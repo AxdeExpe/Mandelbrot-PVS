@@ -45,16 +45,18 @@ public class Model {
     //checks the Image list all the time
     public void imagesWatchdog(){
         while(true){
+            System.out.println("Image Neu");
 
             int length = Images.size();
 
             if(length > this.imagesLength){
+                System.out.println("Image Neu");
                 this.imagesLength = length;
 
-                if((int) Images.get(imagesCounter).get(1) != 0){
+                if(Images.get(imagesCounter).get(1) != (Object) 0){
 
-                    this.imagesCounter++;
                     this.presenter.setImage((Color[][]) Images.get(imagesCounter).get(1));
+                    this.imagesCounter++;
                 }
             }
         }
