@@ -9,6 +9,8 @@ import java.util.ArrayList;
 
 public class Test_Client{
 
+    private static int place;
+
     public static void main(String[] args){
 
         try {
@@ -24,12 +26,21 @@ public class Test_Client{
 
             ArrayList<Object> list = remoteObjekt.getConnection(2);
             int ID = (int) list.get(0);
-            int place = (int) list.get(1);
 
             for(int i = 0; i < 2; i++) { //2 = Threads
 
                 ArrayList<Object> list2 = new ArrayList<Object>();
+
+                if(i == 0){
+                    place = (int) list.get(1);
+                }
+                else{
+                    place = (int) list.get(i+2);
+                }
+
+
                 list2 = (ArrayList<Object>) list.get(2);
+
                 double width = (Double) list2.get(0);
                 double height = (Double) list2.get(1);
                 double xmin = (Double) list2.get(2);
@@ -39,14 +50,19 @@ public class Test_Client{
 
 
                 System.out.println("Color[][]: " + list);
-                System.out.println("ID: " + ID + "\nWidth: " + width + "\nHeight: " + height + "\nxmin: " + xmin + "\nxmax: " + xmax + "\nymin: " + ymin + "\nymax: " + ymax);
+                System.out.println("ID: " + ID + "\nplace: " + place + "\nWidth: " + width + "\nHeight: " + height + "\nxmin: " + xmin + "\nxmax: " + xmax + "\nymin: " + ymin + "\nymax: " + ymax);
 
                 Color[][] c = new Color[(int) width][(int) height]; //höhe und breite nur so aufm Laptop
 
                 for (int y = 0; y < height; ++y) {
                     for (int x = 0; x < width; ++x) {
                         if (c[x][y] == null) {
-                            c[x][y] = Color.RED;
+                            if(place%2 == 0 || place%4 == 0){
+                                c[x][y] = Color.BLUE;
+                            }
+                            else{
+                                c[x][y] = Color.RED;
+                            }
                         }
                     }
                 }
