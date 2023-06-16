@@ -209,12 +209,6 @@ public class RMI_Implementation extends UnicastRemoteObject implements RMI{
         return data;
     }
 
-    //receives data and working on
-    @Override
-    public void workOnRequest(byte[] DataPaket) throws RemoteException {
-
-    }
-
     Model m;
 
     //Zoom has to be != 1.0
