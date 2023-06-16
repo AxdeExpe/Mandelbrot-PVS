@@ -24,10 +24,11 @@ public class Test_Client{
             RMI remoteObjekt = (RMI) registry.lookup("rmi");
 
 
-            ArrayList<Object> list = remoteObjekt.getConnection(2);
+            int Threads = 12;
+            ArrayList<Object> list = remoteObjekt.getConnection(Threads);
             int ID = (int) list.get(0);
 
-            for(int i = 0; i < 2; i++) { //2 = Threads
+            for(int i = 0; i < Threads; i++) {
 
                 ArrayList<Object> list2 = new ArrayList<Object>();
 

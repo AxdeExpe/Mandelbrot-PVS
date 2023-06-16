@@ -6,7 +6,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Model {
+public class Model extends Thread{
     private Presenter presenter;
     public double Zoom;
     private int MidPointX;
@@ -43,12 +43,17 @@ public class Model {
     }
 
     //checks the Image list all the time
-    public void imagesWatchdog(){
+    public synchronized void run(){
         while(true){
             try {
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+
+                System.out.println("interrupted!");
                 int length = Images.size();
 
                 if(length > this.imagesLength){
+                    System.out.println("Model Image: "+ Images);
                     this.imagesLength = length;
 
                     if(Images.get(imagesCounter).get(1) != (Object) 0){
@@ -58,9 +63,6 @@ public class Model {
                         this.imagesCounter++;
                     }
                 }
-                Thread.sleep(50);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
             }
         }
     }

@@ -169,6 +169,7 @@ public class RMI_Implementation extends UnicastRemoteObject implements RMI{
             appendImage(ID);
             System.out.println("Index: " + Index + "; Images.size(): " + Images.size() + "; Images.get(Index).contains(Index): " + Images.get((int)Index).contains(Index) + "; Images[Index][1]: " + Images.get((int)Index).get(1));
             this.m.Images = this.Images;
+            this.m.interrupt();
 
             /*
             if(Index < Images.size() && Images.get((int)Index).contains((int)Index) && Images.get((int)Index).get(1) == (Object) 0){

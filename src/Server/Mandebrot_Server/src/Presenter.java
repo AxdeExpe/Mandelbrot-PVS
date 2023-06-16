@@ -70,6 +70,6 @@ public class Presenter {
         this.view.UI(this.width, this.height);
 
         this.waitForClients();
-        this.model.imagesWatchdog();
+        this.model.start();
     }
 }
