@@ -13,7 +13,7 @@ public class Main {
 
 
     public static void main(String[] args) {
-        if (args.length != 3) {
+        if (args.length != 1) {
             System.out.println("Usage: <Zoomfactor> <MidPointX> <MidPointY>");
             System.exit(1);
         }
@@ -27,14 +27,12 @@ public class Main {
 
         //initializing
         Zoom = Double.parseDouble(args[0]);
-        midPointX = Integer.parseInt(args[1]);
-        midPointY = Integer.parseInt(args[2]);
         
         Presenter presenter = new Presenter();
         View view = new View(presenter);
         Model model = new Model(presenter);
         
-        model.setZoomAndMidPoints(Zoom, midPointX, midPointY);
+        model.setZoomAndMidPoints(Zoom);
         model.setScreenResolution(width, height);
         
         presenter.setModelAndView(model, view);

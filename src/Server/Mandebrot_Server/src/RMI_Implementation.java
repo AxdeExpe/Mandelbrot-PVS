@@ -11,7 +11,6 @@ public class RMI_Implementation extends UnicastRemoteObject implements RMI{
     // x € N0; y € N*;
     // x = "ID"; y = "Threads"
     //[[x,y],[1,8],[2,4],...]
-
     private java.util.List<ArrayList<Integer>> ID = new ArrayList<ArrayList<Integer>>();
 
     //[[index, image],[1,image],[2,0],...]
@@ -20,57 +19,23 @@ public class RMI_Implementation extends UnicastRemoteObject implements RMI{
     //if image = 0; no image for this index, => need to wait
     //image != 0; image object exists, => load it into the View
     private java.util.List<ArrayList<Object>> Images = new ArrayList<ArrayList<Object>>();
-
-
-
-    private java.util.List<ArrayList<Integer>> Queue = new ArrayList<ArrayList<Integer>>();
-
     private int Index = 0; //place in Images-List
 
-    private void checkIDS(){
 
-        int count = 0;
+    Model m;
 
-        for(int i = 0; i < Images.size(); i++){
+    //Zoom has to be != 1.0
+    private double Zoom;
 
-
-            System.out.println(Images.size() +  "           " + Images.get(i).contains(0));
-
-            if(Images.get(i).contains(0)) {
-                int id = (int) Images.get(i).get(0);
-
-
-                System.out.println("ID: " + id + "        " + i);
-                //die ID (client) wurde schon vermerkt
-/*
-                if ((id == (int) Images.get(i + 1).get(0)) && (count == 0) && i > 0) {
-                    System.out.println("sjhgf");
-                    continue;
-                }
-*/
-
-                count = 0;
-
-                for (int j = 0; j < ID.size(); j++) {
-                    if (id == ID.get(j).get(0)) {
-                        count++;
-                    }
-                }
-
-                //If Images at [[x,y],[x,y],...] y == 0 and ID wasn't found in ID list, then notice the
-                //index and ID from the Images list and append it to the Queue list
-                if ((count == 0) && ((int) Images.get(i).get(1) == 0)) {
-                    //merke die Stelle und ID, um diese später noch einmal zu bearbeiten
-                    Queue.add(Queue.size(), new ArrayList<Integer>(Arrays.asList(id, i)));
-                }
-            }
-        }
-
-        System.out.println(Queue);
-
-    }
-
-
+    //data for client
+    private double width; //screen resolution
+    private double height; //screen resolution
+    private double xmin;
+    private double xmax;
+    private double ymin;
+    private double ymax;
+    private double cr;
+    private double ci;
 
 
 
@@ -78,30 +43,6 @@ public class RMI_Implementation extends UnicastRemoteObject implements RMI{
     public void appendID(int threads){
         ID.add(ID.size(),new ArrayList<Integer>(Arrays.asList(ID.size(), threads)));
     }
-
-
-    //removes the entry from list
-    //Client got disconnected
-    //Each client gets another ID
-    public void removeID(int index){
-
-        //An out-of-range entry cannot be removed
-        if (index >= ID.size()) {
-            System.out.println("ID: Index out of bound!");
-            return;
-        }
-
-        ID.remove(index);
-        //this.correctListID();
-    }
-
-    //shows all items in List
-    public java.util.List showID(){
-        return ID;
-    }
-
-    public int getLastID() { return ID.get(showID().size()).get(0); }
-
 
         //appends the Image into the placeholder, if exists. Instead, it appends at the end of the list
        synchronized public int appendImage(int index, int ID, Color[][] image){
@@ -114,8 +55,8 @@ public class RMI_Implementation extends UnicastRemoteObject implements RMI{
                 this.m.Images = this.Images;
                 return 0;
             }
+            //Debugging
             else{
-
                 System.out.println("Index: " + index + "; Images.size(): " + Images.size() + "; Images.get(index).contains(ID): " + Images.get(index).contains(ID) + "; Images.get(index).get(1): " + Images.get(index).get(1) );
                 System.out.println(Images.get(index) + " ID: " + ID + "; Index: " + index + "; index-1: " + Images.get(index-1) +"; index+1: " + Images.get(index+1));
                 System.exit(1);
@@ -129,10 +70,6 @@ public class RMI_Implementation extends UnicastRemoteObject implements RMI{
         public void appendImage(int ID){
             Images.add(Images.size(),new ArrayList<Object>(Arrays.asList(ID, 0)));
         }
-
-
-
-
 
 
 
@@ -176,24 +113,9 @@ public class RMI_Implementation extends UnicastRemoteObject implements RMI{
             System.out.println("Index: " + Index + "; Images.size(): " + Images.size() + "; Images.get(Index).contains(Index): " + Images.get((int)Index).contains(Index) + "; Images[Index][1]: " + Images.get((int)Index).get(1));
             this.m.Images = this.Images;
             this.m.interrupt();
-
-            /*
-            if(Index < Images.size() && Images.get((int)Index).contains((int)Index) && Images.get((int)Index).get(1) == (Object) 0){
-                Images.get((int)Index).set(Images.size(),0);
-                System.out.println("Neuen Placeholder setzen: " + Images);
-                this.m.Images = this.Images;
-            }
-
-            //something went wrong
-            if(Index >= Images.size() && Images.get((int)Index).contains((int)Index) && Images.get((int)Index).get(1) == (Object) 0){
-                System.out.println("Placeholder couldn't set!");
-                System.out.println("Index: " + Index + "\nImages.size(): " + Images.size() + "\nImages.get(Index).contains(Index): " + Images.get((int)Index).contains(Index));
-            }
-            */
         }
         else {
             System.out.println("Image couldn't insert, the placeholder doesn't exist");
-            System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
             return null;
         }
 
@@ -217,23 +139,6 @@ public class RMI_Implementation extends UnicastRemoteObject implements RMI{
 
         return data;
     }
-
-    Model m;
-
-    //Zoom has to be != 1.0
-    private double Zoom;
-
-    //data for client
-    private double width; //screen resolution
-    private double height; //screen resolution
-    private double xmin;
-    private double xmax;
-    private double ymin;
-    private double ymax;
-    private double cr;
-    private double ci;
-
-
 
     public void calcData(){
         double xdim = xmax - xmin;
@@ -261,26 +166,11 @@ public class RMI_Implementation extends UnicastRemoteObject implements RMI{
         //sets a placeholder for the future incoming Color[][] in the list for each thread
         for(int i = 0; i < Threads; i++){
 
-            /*
-            if (Images.size() == 0) {
-                Images.add((int)Index,new ArrayList<Object>(Arrays.asList(Images.size(), 0)));
-                this.m.Images = this.Images;
-            }
-            //sets a placeholder for the future incoming Color[][] in the list
-            else if(Index < Images.size() && Images.get((int)Index).contains(Index) && Images.get((int)Index).get(1) == (Object) 0){
-                Images.add(Images.size(),new ArrayList<Object>(Arrays.asList(ID.size(), 0)));    //Images.get((int)Index).set(Images.size(), 0);
-                this.m.Images = this.Images;
-            }
-             */
             Images.add(Images.size(),new ArrayList<Object>(Arrays.asList(ID.size()-1, 0)));
             this.m.Images = this.Images;
 
             listObj.add(Index); //is the place
             Index++;
-
-
-
-            //Images.add(Index,new ArrayList<Object>(Arrays.asList(Images.size(), 0)));
 
             //calc the necessary data for each Thread / Image
             calcData();

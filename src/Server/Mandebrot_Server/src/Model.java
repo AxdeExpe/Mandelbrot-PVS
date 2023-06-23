@@ -9,9 +9,6 @@ import java.util.List;
 public class Model extends Thread{
     private Presenter presenter;
     public double Zoom;
-    private int MidPointX;
-    private int MidPointY;
-    private ByteBuffer buffer;
 
     //data for client
     protected int width, height; //screen resolution
@@ -31,10 +28,8 @@ public class Model extends Thread{
         this.presenter = presenter;
     }
 
-    public void setZoomAndMidPoints(double Zoom, int X, int Y) {
+    public void setZoomAndMidPoints(double Zoom) {
         this.Zoom = Zoom;
-        this.MidPointX = X;
-        this.MidPointY = Y;
     }
 
     public void setScreenResolution(int width, int height) {
@@ -46,7 +41,7 @@ public class Model extends Thread{
     public synchronized void run(){
         while(true){
             try {
-                Thread.sleep(50000);
+                Thread.sleep(50);
             } catch (InterruptedException e) {
 
                 System.out.println("interrupted!");

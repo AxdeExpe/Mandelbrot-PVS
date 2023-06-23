@@ -21,7 +21,6 @@ public class View {
     }
 
     public void UI(int width, int height) {
-        GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
         this.width = width;
         this.height = height;
         this.image = new BufferedImage(this.width, this.height, 1);
@@ -36,12 +35,10 @@ public class View {
         for(int y = 0; y < this.height; ++y) {
             for(int x = 0; x < this.width; ++x) {
                 if (c[x][y] != null) {
-                    //System.out.println("X: " + x + "; Y: " + y);
                     this.image.setRGB(x, y, c[x][y].getRGB());
                 }
             }
         }
-        System.out.println("Update: " + c);
 
         this.panel.repaint();
     }
