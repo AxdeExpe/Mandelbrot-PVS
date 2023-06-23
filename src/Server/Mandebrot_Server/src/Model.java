@@ -46,7 +46,7 @@ public class Model extends Thread{
     public synchronized void run(){
         while(true){
             try {
-                Thread.sleep(50);
+                Thread.sleep(50000);
             } catch (InterruptedException e) {
 
                 System.out.println("interrupted!");
@@ -58,6 +58,7 @@ public class Model extends Thread{
 
                     if(Images.get(imagesCounter).get(1) != (Object) 0){
                         System.out.println("Next image came!");
+                        System.out.println("Color: " + Images.get(imagesCounter).get(1));
 
                         this.presenter.setImage((Color[][]) Images.get(imagesCounter).get(1));
                         this.imagesCounter++;

@@ -20,8 +20,8 @@ public class Main {
         
         //gets screen resolution
         GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-        int width = gd.getDisplayMode().getWidth() / 16 * 5;
-        int height = gd.getDisplayMode().getHeight() / 9 * 5;
+        int width = gd.getDisplayMode().getWidth() / 16 * 7;
+        int height = gd.getDisplayMode().getHeight() / 9 * 7;
 
         System.out.println(width + " " + height);
 
