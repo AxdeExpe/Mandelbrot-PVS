@@ -25,7 +25,7 @@ public class RMI_Implementation extends UnicastRemoteObject implements RMI{
 
     private java.util.List<ArrayList<Integer>> Queue = new ArrayList<ArrayList<Integer>>();
 
-    private int Index = 0;
+    private int Index = 0; //place in Images-List
 
     private void checkIDS(){
 
@@ -109,12 +109,16 @@ public class RMI_Implementation extends UnicastRemoteObject implements RMI{
            System.out.println("Images: " + Images);
 
             //checks if the placeholder exists and replace it with the image
-            if(index < Images.size() && Images.get(index).contains(ID) && Images.get(index).get(1) == (Object) 0){
+            if(index < Images.size() && Images.get(index).contains(ID) == true && Images.get(index).get(1) == (Object) 0){
                 Images.get(index).set(1,image);
                 this.m.Images = this.Images;
                 return 0;
             }
             else{
+
+                System.out.println("Index: " + index + "; Images.size(): " + Images.size() + "; Images.get(index).contains(ID): " + Images.get(index).contains(ID) + "; Images.get(index).get(1): " + Images.get(index).get(1) );
+                System.out.println(Images.get(index) + " ID: " + ID + "; Index: " + index + "; index-1: " + Images.get(index-1) +"; index+1: " + Images.get(index+1));
+                System.exit(1);
                 return 1;
             }
         }
@@ -146,6 +150,8 @@ public class RMI_Implementation extends UnicastRemoteObject implements RMI{
         this.xmax = m.xmax;
         this.ymin = m.ymin;
         this.ymax = m.ymax;
+        this.cr = m.cr;
+        this.ci = m.ci;
     }
 
 
@@ -187,12 +193,13 @@ public class RMI_Implementation extends UnicastRemoteObject implements RMI{
         }
         else {
             System.out.println("Image couldn't insert, the placeholder doesn't exist");
+            System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+            return null;
         }
 
         System.out.println(Images);
 
         //calculates the new data
-        Index++;
         calcData();
 
         //put Data into the List
@@ -203,6 +210,8 @@ public class RMI_Implementation extends UnicastRemoteObject implements RMI{
         data.add(xmax);
         data.add(ymin);
         data.add(ymax);
+        data.add((double) Index);
+        Index++;
 
         System.out.println(data);
 
@@ -239,6 +248,8 @@ public class RMI_Implementation extends UnicastRemoteObject implements RMI{
         xmax = cr + xdim / 2 / Zoom;
         ymin = ci - ydim / 2 / Zoom;
         ymax = ci + ydim / 2 / Zoom;
+
+        System.out.println(xmin + "; " + xmax);
     }
 
 
@@ -271,8 +282,8 @@ public class RMI_Implementation extends UnicastRemoteObject implements RMI{
             this.m.Images = this.Images;
 
             listObj.add(Index); //is the place
-
             Index++;
+
 
 
             //Images.add(Index,new ArrayList<Object>(Arrays.asList(Images.size(), 0)));
