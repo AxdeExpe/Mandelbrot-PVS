@@ -6,14 +6,14 @@ Client: src/Client/Mandebrot_Client/src
 Server: src/Server/Mandebrot_Server/src
 
 ## Starten des Servers: 
-- In der Konsole "java Main <Zoomfactor> <MidPointX> <MidPointY>" eingeben.
+- In der Konsole "java Main Zoomfactor MidPointX MidPointY" eingeben.
 - Zoomfactor > 1.0
 - <MidPointX> Beispielwert = -0.743643887036151
 - <MidPointY> Beispielwert = 0.13182590420533
 - Alternativ in IntelliJ: Die Main.java auswählen und als Application starten.
 
 ## Starten der Clients:
-- In der Konsole "java Main <IP-Adresse>" eingeben.
+- In der Konsole "java Main IP-Adresse" eingeben.
 
 ## Funktionalität
 - Die Grundfunktionaliät steht soweit. Das Programm läuft auf verschiedenen Systemen. Die Bilder werden richtig dargestellt und in richtiger Reihenfolge berechnet.
