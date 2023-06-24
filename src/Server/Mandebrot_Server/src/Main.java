@@ -8,12 +8,12 @@ import java.awt.GraphicsEnvironment;
 
 public class Main {
     private static double Zoom;
-    private static int midPointX;
-    private static int midPointY;
+    private static double midPointX;
+    private static double midPointY;
 
 
     public static void main(String[] args) {
-        if (args.length != 1) {
+        if (args.length != 3) {
             System.out.println("Usage: <Zoomfactor> <MidPointX> <MidPointY>");
             System.exit(1);
         }
@@ -27,12 +27,14 @@ public class Main {
 
         //initializing
         Zoom = Double.parseDouble(args[0]);
+        midPointX = Double.parseDouble(args[1]);
+        midPointY = Double.parseDouble(args[2]);
         
         Presenter presenter = new Presenter();
         View view = new View(presenter);
         Model model = new Model(presenter);
         
-        model.setZoomAndMidPoints(Zoom);
+        model.setZoomAndMidPoints(Zoom, midPointX, midPointY);
         model.setScreenResolution(width, height);
         
         presenter.setModelAndView(model, view);

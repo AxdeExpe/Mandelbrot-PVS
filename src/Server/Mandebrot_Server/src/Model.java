@@ -16,8 +16,8 @@ public class Model extends Thread{
     protected double xmax = 1.0;
     protected double ymin = -1.0;
     protected double ymax = 1.0;
-    protected double cr = -0.743643887036151;
-    protected double ci = 0.13182590420533;
+    protected double cr; //MidPointX, -0.743643887036151 -> Example
+    protected double ci; //MidPointY, 0.13182590420533 -> Example
 
     //Image List
     public java.util.List<ArrayList<Object>> Images = new ArrayList<ArrayList<Object>>();
@@ -28,8 +28,10 @@ public class Model extends Thread{
         this.presenter = presenter;
     }
 
-    public void setZoomAndMidPoints(double Zoom) {
+    public void setZoomAndMidPoints(double Zoom, double MidPointX, double MidPointY) {
         this.Zoom = Zoom;
+        this.cr = MidPointX;
+        this.ci = MidPointY;
     }
 
     public void setScreenResolution(int width, int height) {
@@ -38,7 +40,7 @@ public class Model extends Thread{
     }
 
     //checks the Image list all the time
-    public synchronized void run(){
+    public void run(){
         while(true){
             try {
                 Thread.sleep(50);
@@ -49,15 +51,18 @@ public class Model extends Thread{
 
                 if(length > this.imagesLength){
                     System.out.println("Model Image: "+ Images);
-                    this.imagesLength = length;
 
-                    if(Images.get(imagesCounter).get(1) != (Object) 0){
-                        System.out.println("Next image came!");
-                        System.out.println("Color: " + Images.get(imagesCounter).get(1));
+                    for(int i = 0; i < length-this.imagesLength; i++) {
 
-                        this.presenter.setImage((Color[][]) Images.get(imagesCounter).get(1));
-                        this.imagesCounter++;
+                        if (Images.get(imagesCounter).get(1) != (Object) 0) {
+                            System.out.println("Next image came!");
+                            System.out.println("Color: " + Images.get(imagesCounter).get(1));
+
+                            this.presenter.setImage((Color[][]) Images.get(imagesCounter).get(1));
+                            this.imagesCounter++;
+                        }
                     }
+                    this.imagesLength = length;
                 }
             }
         }

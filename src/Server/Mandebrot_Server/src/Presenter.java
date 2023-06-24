@@ -8,13 +8,6 @@ public class Presenter {
     private View view;
     private int width;
     private int height;
-    private double xmin = -1.666;
-    private double xmax = 1.0;
-    private double ymin = -1.0;
-    private double ymax = 1.0;
-    private double cr = -0.743643887036151;
-    private double ci = 0.13182590420533;
-    private double Zoom;
 
     Presenter() {
 
@@ -36,8 +29,6 @@ public class Presenter {
             System.out.println("Zoom has to be larger or lower then 1.0!");
             System.exit(1);
         }
-
-        this.Zoom = zoom;
     }
 
     private void waitForClients(){
