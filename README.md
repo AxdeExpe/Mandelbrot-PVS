@@ -17,6 +17,6 @@ Server: src/Server/Mandebrot_Server/src
 
 ## Funktionalität
 - Die Grundfunktionaliät steht soweit. Das Programm läuft auf verschiedenen Systemen. Die Bilder werden richtig dargestellt und in richtiger Reihenfolge berechnet.
-- Fehler: Meistens aller 400 - 500 Gesamtiterationen gibt es Fehler beim Indixieren. Die Lücke entsteht immer nur beim letzten Client.
+- Fehler: Meistens aller 400 - 500 Gesamtiterationen gibt es Fehler beim Indexieren. Die Lücke entsteht immer nur beim letzten Client.
 - Vermutung: Es ist schwer zu sagen, ob es am Server oder am Client liegt. Die Tendenz neigt sich aber mehr zur Server-Richtung.
 - Konsequenz: Das Bild bleibt stehen. (Durch Code) Der Server schließt sich. Die Bilder werden dann sehr schnell berechnet, außer beim letzten Client.
