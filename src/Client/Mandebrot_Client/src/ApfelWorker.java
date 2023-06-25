@@ -7,7 +7,6 @@ public class ApfelWorker extends Thread{
     int y_sta, y_sto, ypix, xpix, place, ID;
     double xmin, xmax, ymin, ymax;
     final int max_iter = 5000;
-    //private Main main;
 
     public ApfelWorker (int y_start, int y_stopp, double xmin, double xmax, double ymin, double ymax, int ypix, int xpix, int place, int ID, RMI remoteObjekt) {
         this.y_sta = y_start;
@@ -18,7 +17,6 @@ public class ApfelWorker extends Thread{
         this.ymax = ymax;
         this.ypix = ypix;
         this.xpix = xpix;
-        //this.main = main;
         this.place = place;
         this.ID = ID;
         this.remoteObjekt = remoteObjekt;
@@ -30,6 +28,8 @@ public class ApfelWorker extends Thread{
         int[][] bildIter = new int[xpix][ypix];
         Color[][] bild;
         bild = new Color[xpix][ypix];
+
+        // Berechnung des Mandelbrot für den zugeteilten Bereich
         for (int y = y_sta; y < y_sto; y++) {
             c_im = ymin + (ymax - ymin) * y / ypix;
 
@@ -46,24 +46,29 @@ public class ApfelWorker extends Thread{
             }
         }
         System.out.println(bild);
+
+        // Senden der berechneten Daten an den Server
         ArrayList<Object> data = new ArrayList<Object>();
         data.add(ID);
         data.add(place);
         data.add(bild);
-	
+
+        // Senden des Bildausschnittes und empfangen der Daten für den neuen Bildausschnitt
         ArrayList<Double> dataReturn = null;
         try {
             dataReturn = remoteObjekt.sendData(data);
         } catch (RemoteException e) {
             throw new RuntimeException(e);
         }
+
+        //Hilfe beim debbuging
         if (dataReturn == null){
-        System.out.println("HIER IST DER BUG: " + data);
-        System.exit(1);
+            System.out.println("HIER IST DER BUG: " + data);
+            System.exit(1);
         }
         System.out.println("HIER SIND DIE DATEN: " + dataReturn);
-        //main.next_pict.
-        //dataReturn;
+
+        //Auslesen der Daten für den neuen Bildausschnitt
         double nxmin = (Double) dataReturn.get(2);
         double nxmax = (Double) dataReturn.get(3);
         double nymin = (Double) dataReturn.get(4);
@@ -71,9 +76,10 @@ public class ApfelWorker extends Thread{
         int nypix = (int) Math.round((double)dataReturn.get(1));
         int nxpix = (int) Math.round((double)dataReturn.get(0));
         int nplace = (int) Math.round((double)dataReturn.get(6));
+
+        // Erzeugen eines neuen ApfelWorker-Threads und Starten der Berechnung für den nächsten Bereich
         ApfelWorker worker = new ApfelWorker(0, ypix,  nxmin,  nxmax,  nymin,  nymax,  nypix,  nxpix, nplace, ID, remoteObjekt);
         worker.start();
-        return;
     }
 
     /**
@@ -118,18 +124,4 @@ public class ApfelWorker extends Thread{
         return Color.BLACK;
     }
 
-    /*@Override
-    public ArrayList<Double> sendData(ArrayList<Object> DataPaket) throws RemoteException {
-        return null;
-    }
-
-    @Override
-    public void workOnRequest(byte[] DataPaket) throws RemoteException {
-
-    }
-
-    @Override
-    public ArrayList<Object> getConnection(int Threads) throws RemoteException {
-        return null;
-    }*/
 }
