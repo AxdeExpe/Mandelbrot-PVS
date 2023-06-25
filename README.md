@@ -8,8 +8,8 @@ Server: src/Server/Mandebrot_Server/src
 ## Starten des Servers: 
 - In der Konsole "java Main Zoomfactor MidPointX MidPointY" eingeben.
 - Zoomfactor > 1.0
-- <MidPointX> Beispielwert = -0.743643887036151
-- <MidPointY> Beispielwert = 0.13182590420533
+- MidPointX Beispielwert = -0.743643887036151
+- MidPointY Beispielwert = 0.13182590420533
 - Alternativ in IntelliJ: Die Main.java auswählen und als Application starten.
 
 ## Starten der Clients:
